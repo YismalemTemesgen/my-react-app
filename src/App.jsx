@@ -6,8 +6,6 @@
 //2. MODULES
 //3. INLINE
 
-// conditional rendering = allows you to control what gets rendered in your application based on certain conditions(show, hide, or change components)
-//1:29
 import Header from './Header'
 import Footer from './Footer'
 import Food from './Food'
@@ -16,6 +14,9 @@ import Button from './Button.jsx'
 import Student from './Student.jsx'
 import List from './List.jsx'
 import UserGreeting from './UserGreeting.jsx'
+import ProfilePicture from './ProfilePicture.jsx'
+import MyComponent from './MyComponent.jsx'
+import Counter from './Counter.jsx'
 function App() {
   const fruits = [{id: 1, name: "apple", calories: 95}, 
                 {id: 2, name: "orange", calories: 45},
@@ -37,7 +38,10 @@ const vegetables = [{id: 6, name: "potatoes", calories: 95},
     {fruits.length > 0 && <List items={fruits} category="Fruits"/> }
     {vegetables.length > 0 && <List items={vegetables} category="Vegetebles"/> }
     <UserGreeting isLoggedIn={true} username="Yisma"/>
+    <Counter/>
     <Student />
+    <MyComponent/>
+    <ProfilePicture/>
     <Header/>
     <Footer/>
     <Button />
