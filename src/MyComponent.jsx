@@ -1,4 +1,5 @@
 // onChange = event handler used primarily with form elements ex. <input>, <textarea>, <select>, <radio> Triggers a function every time the value of the input changes
+//updater function = A function passed as an argument to setState() usually ex. setYear(year + 1) Allow for safe updates based on the previous state used with multiple state updates and asynchronous functions Good practice to use updater functions
 
 import React, {useState} from 'react';
 
@@ -10,6 +11,11 @@ function MyComponent(){
     const [shipping, setShipping] = useState("");
     const [age, setAge] = useState(0);
     const [isEmployed, setIsEmployed] = useState(false);
+    const [count, setCount] = useState(0);
+    const [car, setCar] = useState({year: 2026, 
+                                    make: "Food",
+                                    model: "Mustang"});
+    const [foods, setFoods] = useState(["Apple", "Orange", "Banana"]);
     const updateName = () =>{
         setName("Spongebob") ;
         console.log(name);
@@ -37,6 +43,41 @@ function MyComponent(){
   }
   function handleShippingChange(event){
     setShipping(event.target.value);
+  }
+
+  function increment(){
+       setCount(c => c + 1);
+       setCount(c => c + 1);
+       setCount(c => c + 1);
+  };
+  function decrement(){
+    setCount(c => c - 1);
+    setCount(c => c - 1);
+    setCount(c => c - 1);
+  };
+
+  function reset(){
+      setCount(0);
+  }
+
+  function handleYearChange(event){
+      setCar(c => ({...c, year: event.target.value}));
+  }
+  function handleMakeChange(event){
+      setCar(c => ({...c, Make: event.target.value}));
+  }
+  function handleModelChange(event){
+     setCar(c => ({...c, Model: event.target.value}));
+  }
+
+  function handleAddFood(){
+   const newFood = document.getElementById("foodInput").value;
+   document.getElementById("foodInput").value = "";
+   
+   setFoods([...foods, newFood]);
+  }
+  function handleRemoveFood(index){
+    setFoods(foods.filter((_, i)=> i !== index));
   }
     return ( 
         <>
@@ -74,6 +115,28 @@ function MyComponent(){
                 Delivery
             </label>
             <p> Shipping: {shipping}</p>
+        </div>
+        <div>
+          <p>Count: {count}</p>
+          <button onClick={decrement}>Decrement</button>
+          <button onClick={reset}>Reset</button>
+          <button onClick={increment}>Increment</button>
+        </div>
+        <div>
+          <p>Your favorite car is: {car.year}{car.make}{car.model}</p>
+          <input type="number" value={car.year} onChange={handleYearChange}/>
+          <input type="text" value={car.make} onChange={handleMakeChange}/>
+          <input type="text" value={car.model} onChange={handleModelChange}/>
+        </div>
+        <div>
+          <h1>List os Food</h1>
+          <ul>
+            {foods.map((food, index) =>
+            <li key={index} onClick={() => handleRemoveFood(index)}>{food}</li>)}
+          </ul>
+            <input type="text" id="foodInput" placeholder="Enter food name"/>
+            <button onClick={handleAddFood}>Add Food</button>
+        
         </div>
         </>
          );
