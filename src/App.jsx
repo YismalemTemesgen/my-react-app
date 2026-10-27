@@ -18,6 +18,7 @@ import ProfilePicture from './ProfilePicture.jsx'
 import MyComponent from './MyComponent.jsx'
 import Counter from './Counter.jsx'
 import ColorPicker from './ColorPicker'
+import ToDoList from './ToDoList.jsx';
 function App() {
   const fruits = [{id: 1, name: "apple", calories: 95}, 
                 {id: 2, name: "orange", calories: 45},
@@ -41,6 +42,7 @@ const vegetables = [{id: 6, name: "potatoes", calories: 95},
     <UserGreeting isLoggedIn={true} username="Yisma"/>
     <Counter/>
     <ColorPicker/>
+    <ToDoList />
     <Student />
     <MyComponent/>
     <ProfilePicture/>
