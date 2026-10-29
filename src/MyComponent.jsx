@@ -1,7 +1,25 @@
 // onChange = event handler used primarily with form elements ex. <input>, <textarea>, <select>, <radio> Triggers a function every time the value of the input changes
 //updater function = A function passed as an argument to setState() usually ex. setYear(year + 1) Allow for safe updates based on the previous state used with multiple state updates and asynchronous functions Good practice to use updater functions
 
-import React, {useState} from 'react';
+//useEffect() = React Hook that tells React DO SOME CODE WHEN (pick one):
+//                This component re- renders
+//                This component mounts 
+//                The state of a value
+
+//   useEffect(function, [dependencies])
+
+//1. useEffect(() => {})    // Runs after every re-render
+//2. useEffect(() => {},[]) // Runs only on mount
+//3. useEffect(() => {},[value]) // Runs on mount + when value changes
+
+//USES
+//#1 Event Listeners
+//#2 DOM manipulation 
+//#3 Subscriptions (real-time updates)
+//#4 Fetching Data from an API
+//#5 Clean up when a component unmounts
+
+import React, {useState, useEffect} from 'react';
 
 function MyComponent(){
     const [name, setName] = useState("Yisme");
@@ -20,6 +38,8 @@ function MyComponent(){
     const [carYear, setCarYear] = useState(new Date().getFullYear());
      const [carMake, setCarMake] = useState("");
      const [carModel, setCarModel] = useState("");
+     const [counts, setCounts] = useState(0);
+     const [colors, setColors] = useState("green");
     const updateName = () =>{
         setName("Spongebob") ;
         console.log(name);
@@ -105,6 +125,18 @@ function MyComponent(){
   function handleModelsChange(event){
       setCarModel(event.target.value);
   }
+  useEffect(() => {
+      document.title = `Count: ${counts} ${colors}` ;
+  }, [counts, colors]);
+  function addCounts(){
+       setCounts(c => c + 1);
+  }
+  function substractCounts(){
+       setCounts(c => c - 1);
+  }
+  function changeColors(){
+       setColors(c => c === "green" ? "red" : "green");
+  }
     return ( 
         <>
         <div>
@@ -179,6 +211,12 @@ function MyComponent(){
           <button onClick={handleAddCar}>Add Car</button>
 
         </div>
+        <div>
+        <p style={{color: colors}}>Counts: {counts}</p>
+        <button onClick={addCounts}>Add</button>
+        <button onClick={substractCounts}>Subtract</button>
+        <button onClick={changeColors}>Change Color</button>
+         </div>
         </>
          );
 }
